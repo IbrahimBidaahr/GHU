@@ -1,0 +1,97 @@
+-- Table for exam definitions
+CREATE TABLE `exams` (
+  `exam_id` INT AUTO_INCREMENT PRIMARY KEY,
+  `course_id` varchar(20) NOT NULL,
+  `tc_id` varchar(20) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `exam_date` DATE NOT NULL,
+  `status` ENUM('draft', 'pending', 'approved', 'rejected') DEFAULT 'draft',
+  `rejection_reason` TEXT,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`),
+  FOREIGN KEY (`tc_id`) REFERENCES `teachers` (`tc_id`)
+);
+
+-- Table for exam components and their weights
+CREATE TABLE `exam_components` (
+  `component_id` INT AUTO_INCREMENT PRIMARY KEY,
+  `exam_id` INT NOT NULL,
+  `component_type` ENUM('midterm', 'attendance', 'quiz_assignment', 'final') NOT NULL,
+  `max_marks` DECIMAL(5,2) NOT NULL,
+  FOREIGN KEY (`exam_id`) REFERENCES `exams` (`exam_id`) ON DELETE CASCADE
+);
+
+-- Table for student exam scores
+CREATE TABLE `exam_scores` (
+  `score_id` INT AUTO_INCREMENT PRIMARY KEY,
+  `exam_id` INT NOT NULL,
+  `st_id` varchar(20) NOT NULL,
+  `midterm_marks` DECIMAL(5,2) DEFAULT 0,
+  `attendance_marks` DECIMAL(5,2) DEFAULT 0,
+  `quiz_assignment_marks` DECIMAL(5,2) DEFAULT 0,
+  `final_marks` DECIMAL(5,2) DEFAULT 0,
+  `total_marks` DECIMAL(5,2) GENERATED ALWAYS AS 
+    (midterm_marks + attendance_marks + quiz_assignment_marks + final_marks) STORED,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (`exam_id`) REFERENCES `exams` (`exam_id`) ON DELETE CASCADE,
+  FOREIGN KEY (`st_id`) REFERENCES `students` (`st_id`),
+  UNIQUE KEY `unique_student_exam` (`exam_id`, `st_id`)
+);
+
+-- Sample stored procedure to calculate attendance marks
+DELIMITER //
+CREATE PROCEDURE CalculateAttendanceMarks(
+  IN p_st_id VARCHAR(20),
+  IN p_course_id VARCHAR(20),
+  IN p_exam_id INT
+)
+BEGIN
+  DECLARE total_classes INT;
+  DECLARE attended_classes INT;
+  DECLARE attendance_percentage DECIMAL(5,2);
+  
+  -- Get total number of classes
+  SELECT COUNT(*) INTO total_classes
+  FROM attendance
+  WHERE course = p_course_id;
+  
+  -- Get number of classes attended
+  SELECT COUNT(*) INTO attended_classes
+  FROM attendance
+  WHERE stat_id = p_st_id 
+    AND course = p_course_id 
+    AND st_status = 'Present';
+  
+  -- Calculate attendance percentage and marks (10% of total)
+  IF total_classes > 0 THEN
+    SET attendance_percentage = (attended_classes / total_classes) * 10;
+  ELSE
+    SET attendance_percentage = 0;
+  END IF;
+  
+  -- Update exam_scores with calculated attendance marks
+  UPDATE exam_scores
+  SET attendance_marks = attendance_percentage
+  WHERE exam_id = p_exam_id AND st_id = p_st_id;
+END //
+DELIMITER ;
+
+-- Sample trigger to update total marks when individual marks are updated
+DELIMITER //
+CREATE TRIGGER before_exam_score_update
+BEFORE UPDATE ON exam_scores
+FOR EACH ROW
+BEGIN
+    SET NEW.total_marks = NEW.midterm_marks + NEW.attendance_marks + 
+                         NEW.quiz_assignment_marks + NEW.final_marks;
+END //
+DELIMITER ;
+
+-- Insert sample exam component configuration
+INSERT INTO exam_components (exam_id, component_type, max_marks) VALUES
+(1, 'midterm', 20),
+(1, 'attendance', 10),
+(1, 'quiz_assignment', 20),
+(1, 'final', 50);

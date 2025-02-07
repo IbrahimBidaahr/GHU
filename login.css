@@ -1,0 +1,21 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+body{
+    height:100vh;
+    background-color: aquamarine;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.row {
+    width:min(900px,95%);
+    height: 500px;
+    border:solid 1px blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

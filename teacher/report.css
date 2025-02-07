@@ -1,0 +1,116 @@
+:root {
+    --primary-gradient: linear-gradient(45deg, #4158d0, #c850c0);
+}
+
+.report-container {
+    background: rgb(75, 29, 29);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin: 2rem auto;
+    width: 100%;
+    max-width: 1400px;
+}
+
+.report-form-container {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.report-card {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease;
+}
+
+.report-form {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.btn-gradient {
+    background: var(--primary-gradient);
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1.5rem;
+    margin: 1rem 0;
+}
+
+.btn-gradient:hover {
+    transform: translateY(-2px);
+    color: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.table-responsive {
+    margin: 0;
+    width: 100%;
+    overflow-x: auto;
+}
+
+#massReportTable {
+    width: 100% !important;
+}
+
+.dataTables_wrapper {
+    padding: 1rem 0;
+}
+
+.dataTables_filter, 
+.dataTables_length {
+    margin-bottom: 1rem;
+}
+
+/* Autocomplete styles */
+.ui-autocomplete {
+    background: white;
+    border-radius: 0.25rem;
+    border: 1px solid rgba(0,0,0,.15);
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.175);
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1000;
+}
+
+.ui-autocomplete .ui-menu-item {
+    padding: 0;
+}
+
+.ui-autocomplete .ui-menu-item div {
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+}
+
+.ui-autocomplete .ui-menu-item div:hover {
+    background: #f8f9fa;
+    color: #16181b;
+}
+
+.ui-autocomplete .ui-menu-item div.ui-state-active {
+    background: #007bff;
+    color: white;
+    margin: 0;
+}
+
+.ui-helper-hidden-accessible {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .report-container {
+        padding: 1rem;
+        margin: 1rem auto;
+    }
+
+    .table-responsive {
+        margin: 0;
+    }
+}
