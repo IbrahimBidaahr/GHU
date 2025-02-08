@@ -8,12 +8,17 @@
 
 -The system dynamically displays available courses based on the selected department.
 ## Features
-### User Authentication: Secure login and signup functionality for teachers and students.
+### User Authentication: 
+-Secure login and signup functionality for teachers and students.
 
-### Student Attendance Tracking: Mark, update, and view attendance records.
+### Student Attendance Tracking:
+-Mark, update, and view attendance records.
 
-### Batch & Department Filtering: Courses are displayed based on the selected department.
+### Batch & Department Filtering: 
+-Courses are displayed based on the selected department.
 
-### Role-Based Access: Admin, teacher, and student roles with different access levels.
+### Role-Based Access:
+-Admin, teacher, and student roles with different access levels.
 
-### Responsive Design: Mobile-friendly interface for easy accessibility.
+### Responsive Design:
+-Mobile-friendly interface for easy accessibility.
