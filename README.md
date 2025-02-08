@@ -22,3 +22,9 @@ Admin, teacher, and student roles with different access levels.
 
 ### Responsive Design:
 Mobile-friendly interface for easy accessibility.
+
+## Technologies Used
+### Front-end: HTML, CSS
+### Back-end: PHP
+### Database: MySQL
+### Additional Tools: Composer (for dependency management)
