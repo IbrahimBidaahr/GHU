@@ -39,3 +39,24 @@ Mobile-friendly interface for easy accessibility.
 4. Start a local PHP server:
 
 5. Access the app in your browser.
+## Project Structure
+
+/attendance-management-system
+│── admin/                 # Admin panel files  
+│── css/                   # Stylesheets  
+│── img/                   # Images  
+│── student/               # Student-related files  
+│── teacher/               # Teacher-related files  
+│── vendor/                # Composer dependencies  
+│── 01 LOGIN DETAILS & PROJECT INFO.txt  
+│── attendance.php         # Attendance management  
+│── composer.json          # Composer dependencies  
+│── connect.php            # Database connection  
+│── index.php              # Homepage  
+│── login.css              # Login page styling  
+│── logout.php             # Logout functionality  
+│── reset.php              # Password reset  
+│── signup.php             # User registration  
+└── DATABASE_FILE.sql      # MySQL database file  
+## Contributors
+Ibrahim Bidaahr - Developer
