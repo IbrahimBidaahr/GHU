@@ -28,3 +28,14 @@ Mobile-friendly interface for easy accessibility.
 ### Back-end: PHP
 ### Database: MySQL
 ### Additional Tools: Composer (for dependency management)
+
+## Installation Instructions
+1. Clone the repository:
+
+2. Install dependencies using Composer:
+
+3. Import the database file (DATABASE_FILE.sql) into MySQL.
+
+4. Start a local PHP server:
+
+5. Access the app in your browser.
